@@ -1,13 +1,21 @@
 import { Button, Text, View, Image, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import "react-native-url-polyfill/auto";
+
 import { images } from "../constants";
 import CutomButton from "../components/CutomButton";
 import { useState } from "react";
 import { router, Redirect } from "expo-router";
+import { useAuth } from "../context/AuthContext";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+
+  const { isLoggedIn, isLoading } = useAuth();
+
+  if (!isLoading && isLoggedIn) return <Redirect href="/Home" />;
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>

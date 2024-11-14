@@ -5,7 +5,9 @@ import { ScrollView } from "react-native";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CutomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { useAuth } from "../../context/AuthContext";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -13,8 +15,29 @@ const SignIn = () => {
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleSubmit = () => {
-    setIsSubmitting(!isSubmitting);
+
+  const { setUser, setIsLoggedIn } = useAuth();
+
+  const handleSubmit = async () => {
+    if (!form.email || !form.password)
+      Alert.alert("Error", "Please fill a form fields");
+
+    setIsSubmitting(true);
+
+    try {
+      await signIn(form.email, form.password);
+      const result = getCurrentUser();
+
+      setUser(result);
+      setIsLoggedIn(true);
+
+      router.replace("/Home");
+    } catch (error) {
+      Alert.alert("Error", Error);
+      throw new Error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <SafeAreaView className="bg-primary h-full">
