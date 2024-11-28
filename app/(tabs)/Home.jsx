@@ -14,24 +14,30 @@ import SearchInput from "../../components/SearchInput";
 
 import getAllPost from "../../lib/appwrite.js";
 import useFetchData from "../../hooks/useFetchData.js";
+import VideoCard from "../../components/VideoCard.jsx";
+import Trending from "../../components/Trending.jsx";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { data: posts, isLoading } = useFetchData(getAllPost);
+  const { data: allPosts, isLoading, refetch: allFecht } = useFetchData("all");
+  const { data: latestPost, refetch: latestFetch } = useFetchData("latest");
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     setRefreshing(true);
     // Fetch new data from API
+    await allFecht();
+    await latestFetch();
     // Once new data is received, set refreshing to false
     setRefreshing(false);
   };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={allPosts}
         // data={[]}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <Text className="text-white">{item.id}</Text>}
+        renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => {
           return (
             <View className="px-4 my-10">
@@ -56,11 +62,13 @@ const Home = () => {
                 placeholder="Search for a video topic"
               />
 
-              <View className=" mt-14">
+              <View className=" mt-14 mb-10">
                 <Text className="text-gray-100 font-pregular text-lg">
                   Latest Videos
                 </Text>
               </View>
+
+              <Trending posts={latestPost} />
             </View>
           );
         }}

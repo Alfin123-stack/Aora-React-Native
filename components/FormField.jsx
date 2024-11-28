@@ -11,17 +11,23 @@ const FormField = ({
   otherStyles,
   keyboardType,
 }) => {
+  const [searchInput, setSearchInput] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   return (
     <View className={`space-y-2 ${otherStyles}`}>
       <Text className="text-base font-pmedium text-gray-100 mb-2">{title}</Text>
 
-      <View className="border-2 px-4 border-black-200 w-full h-16 bg-black-200 rounded-2xl focus:border-secondary flex-row justify-center items-center">
+      <View
+        className={`border-2 px-4 border-black-200 w-full h-16 bg-black-200 rounded-2xl focus:border-secondary flex-row justify-center items-center ${
+          searchInput ? "border-secondary" : "border-black-200"
+        }`}>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           className="items-center font-psemibold text-white flex-1"
           placeholderTextColor="#7b7b8b"
+          onFocus={() => setSearchInput(true)} // Mengaktifkan fokus
+          onBlur={() => setSearchInput(false)} // Menghapus fokus
           secureTextEntry={title === "Password" && !showPassword}
         />
 
