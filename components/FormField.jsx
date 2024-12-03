@@ -7,6 +7,7 @@ import { icons } from "../constants";
 const FormField = ({
   title,
   value,
+  placeholder,
   onChangeText,
   otherStyles,
   keyboardType,
@@ -23,6 +24,7 @@ const FormField = ({
         }`}>
         <TextInput
           value={value}
+          placeholder={placeholder}
           onChangeText={onChangeText}
           className="items-center font-psemibold text-white flex-1"
           placeholderTextColor="#7b7b8b"

@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { icons, images } from "../constants";
+import { icons } from "../constants";
 import { useVideoPlayer, VideoView } from "expo-video";
+import ActionMenu from "./ActionMenu";
 
 const VideoCard = ({
   video: {
@@ -12,15 +13,16 @@ const VideoCard = ({
   },
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isActionMenu, setIsActionMenu] = useState(false);
 
   const player = useVideoPlayer(video, (player) => {
     player.loop = true; // Enable looping
     // player.play();
   });
   return (
-    <View className="px-4 flex flex-col items-center mb-14 w-full">
+    <View className="px-4 flex flex-col items-center mb-14 w-full relative">
       <View className="flex flex-row items-center w-full gap-4">
-        <View className="w-[46px] h-[46px] border border-yellow-500 rounded-lg overflow-hidden">
+        <View className="w-[46px] h-[46px] border-2 border-yellow-500 rounded-lg overflow-hidden">
           <Image
             source={{ uri: avatar }}
             resizeMode="cover"
@@ -36,9 +38,16 @@ const VideoCard = ({
           </Text>
         </View>
 
-        <View className="self-end pt-2">
-          <Image source={icons.menu} resizeMode="contain" className="w-5 h-5" />
-        </View>
+        <TouchableOpacity
+          onPress={() => setIsActionMenu((prevState) => !prevState)}>
+          <View className="self-end pt-2">
+            <Image
+              source={icons.menu}
+              resizeMode="contain"
+              className="w-5 h-5"
+            />
+          </View>
+        </TouchableOpacity>
       </View>
       {isPlaying ? (
         <View className="mt-3 rounded-3xl w-full h-64 overflow-hidden">
@@ -68,6 +77,8 @@ const VideoCard = ({
           />
         </TouchableOpacity>
       )}
+
+      {isActionMenu && <ActionMenu />}
     </View>
   );
 };
