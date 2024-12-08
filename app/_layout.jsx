@@ -3,10 +3,18 @@ import React, { useEffect } from "react";
 import { Slot, SplashScreen, Stack } from "expo-router";
 import "../global.css";
 import { useFonts } from "expo-font";
-
+import { Provider as PaperProvider, DefaultTheme } from "react-native-paper"; // Import Provider dari react-native-paper
 import AuthProvider from "../context/AuthContext";
 
 SplashScreen.preventAutoHideAsync();
+
+const theme = {
+  ...DefaultTheme, // Mengambil tema default
+  colors: {
+    ...DefaultTheme.colors, // Mengambil semua warna default
+    primary: "white", // Mengubah warna primary menjadi putih
+  },
+};
 
 export default function RootLayout() {
   const [fontsLoaded, error] = useFonts({
@@ -32,12 +40,17 @@ export default function RootLayout() {
   if (!fontsLoaded && !error) return null;
   return (
     <AuthProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="search/[query]" options={{ headerShown: false }} />
-      </Stack>
+      <PaperProvider theme={theme}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="search/[query]"
+            options={{ headerShown: false }}
+          />
+        </Stack>
+      </PaperProvider>
     </AuthProvider>
   );
 }

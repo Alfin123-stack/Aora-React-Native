@@ -27,7 +27,7 @@ const Home = () => {
     // Fetch new data from API
     await allFecht();
     await latestFetch();
-    // Once new data is received, set refreshing to false
+    // Once new data is received, sets refreshing to false
     setRefreshing(false);
   };
 
@@ -37,7 +37,7 @@ const Home = () => {
         data={allPosts}
         // data={[]}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        renderItem={({ item }) => <VideoCard video={item} id={item.$id} />}
         ListHeaderComponent={() => {
           return (
             <View className="px-4 my-10">

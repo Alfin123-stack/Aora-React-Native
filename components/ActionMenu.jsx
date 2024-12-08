@@ -1,30 +1,87 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { View, TouchableOpacity, Image, Text } from "react-native";
 import { icons } from "../constants";
+import ModalDialog from "./ModalDialog"; // Import ModalDialog
 
-const ActionMenu = () => {
+const ActionMenu = ({isSaved}) => {
+  const [visible, setVisible] = useState(false); // Untuk kontrol visibilitas dialog
+  const [dialogType, setDialogType] = useState(null); // Untuk menentukan jenis dialog
+
+  // Menampilkan dialog sesuai jenisnya
+  const showDialog = (type) => {
+    setDialogType(type); // Set dialog type (Save / Delete)
+    setVisible(true); // Menampilkan dialog
+  };
+
+  // Menyembunyikan dialog
+  const hideDialog = () => {
+    setVisible(false);
+    setDialogType(null); // Reset jenis dialog setelah dialog ditutup
+  };
+
   return (
-    <View className="bg-gray-800 px-8 py-4 rounded-lg flex gap-4 justify-start absolute top-16 right-[20px]">
-      <TouchableOpacity>
-        <View className="flex flex-row gap-2">
+    <View style={styles.menuContainer}>
+      {/* Tombol Save */}
+      <TouchableOpacity onPress={() => showDialog("save")}>
+        <View style={styles.menuItem}>
           <Image
             source={icons.bookmark}
             resizeMode="contain"
-            className="w-5 h-5"
+            style={styles.icon}
           />
-          <Text className="text-white text-sm font-psemibold">Save</Text>
+          <Text style={styles.menuText}>Save</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <View className="flex flex-row gap-2">
-          <Image source={icons.plus} resizeMode="contain" className="w-5 h-5" />
-          <Text className="text-white text-sm font-psemibold">Delete</Text>
+
+      {/* Tombol Delete */}
+      <TouchableOpacity onPress={() => showDialog("delete")}>
+        <View style={styles.menuItem}>
+          <Image source={icons.plus} resizeMode="contain" style={styles.icon} />
+          <Text style={styles.menuText}>Delete</Text>
         </View>
       </TouchableOpacity>
+
+      {/* ModalDialog */}
+      <ModalDialog
+      isSaved={isSaved}
+        visible={visible}
+        hideDialog={hideDialog}
+        dialogType={dialogType} // Pass dialog type to ModalDialog
+      />
     </View>
   );
 };
 
 export default ActionMenu;
 
-const styles = StyleSheet.create({});
+const styles = {
+  menuContainer: {
+    backgroundColor: "#2d2d2d", // Background gelap untuk menu
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    position: "absolute",
+    top: 64, // Posisi menu
+    right: 20,
+    shadowColor: "#000", // Efek shadow
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 6, // Efek shadow untuk Android
+    gap: 12, // Jarak antar item
+  },
+  menuItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  icon: {
+    width: 20,
+    height: 20,
+  },
+  menuText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "600", // Teks bold
+  },
+};

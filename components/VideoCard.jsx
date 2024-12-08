@@ -1,8 +1,10 @@
 import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { icons } from "../constants";
 import { useVideoPlayer, VideoView } from "expo-video";
 import ActionMenu from "./ActionMenu";
+import { useAuth } from "../context/AuthContext";
+import { getSavedVideosByUserId } from "../lib/appwrite";
 
 const VideoCard = ({
   video: {
@@ -11,14 +13,30 @@ const VideoCard = ({
     video,
     creator: { username, avatar },
   },
+  id,
 }) => {
+  const [posts, setPosts] = useState([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isActionMenu, setIsActionMenu] = useState(false);
+  const { user } = useAuth();
 
   const player = useVideoPlayer(video, (player) => {
     player.loop = true; // Enable looping
     // player.play();
   });
+
+  useEffect(function () {
+    async function fetching() {
+      const response = await getSavedVideosByUserId(user.$id);
+      setPosts(response);
+    }
+    fetching();
+  }, []);
+
+  const isSaved = posts.filter((saved) => saved.$id === id).map(isSaved => isSaved.$id);
+  
+
+
   return (
     <View className="px-4 flex flex-col items-center mb-14 w-full relative">
       <View className="flex flex-row items-center w-full gap-4">
@@ -34,7 +52,7 @@ const VideoCard = ({
             {title}
           </Text>
           <Text className="text-xs text-gray-500" numberOfLines={1}>
-            {username}
+            {username || ""}
           </Text>
         </View>
 
@@ -78,7 +96,7 @@ const VideoCard = ({
         </TouchableOpacity>
       )}
 
-      {isActionMenu && <ActionMenu />}
+      {isActionMenu && <ActionMenu isSaved={isSaved} />}
     </View>
   );
 };

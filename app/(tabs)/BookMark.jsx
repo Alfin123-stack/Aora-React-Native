@@ -12,32 +12,44 @@ import EmptyState from "../../components/EmptyState";
 import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 
-import getAllPost from "../../lib/appwrite.js";
+import getAllPost, {
+  getCurrentUser,
+  getSavedVideosByUserId,
+} from "../../lib/appwrite.js";
 import useFetchData from "../../hooks/useFetchData.js";
 import VideoCard from "../../components/VideoCard.jsx";
 import Trending from "../../components/Trending.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const BookMark = () => {
   const [refreshing, setRefreshing] = useState(false);
-  const { data: allPosts, isLoading, refetch: allFecht } = useFetchData("all");
-  const { data: latestPost, refetch: latestFetch } = useFetchData("latest");
+  const [posts, setPosts] = useState([]);
+  const { user } = useAuth();
 
   const handleRefresh = async () => {
-    setRefreshing(true);
-    // Fetch new data from API
-    await allFecht();
-    await latestFetch();
-    // Once new data is received, set refreshing to false
-    setRefreshing(false);
+    // setRefreshing(true);
+    // // Fetch new data from API
+    // await allFecht();
+    // await latestFetch();
+    // // Once new data is received, set refreshing to false
+    // setRefreshing(false);
   };
+
+  useEffect(function () {
+    async function fetching() {
+      const response = await getSavedVideosByUserId(user.$id);
+      setPosts(response);
+    }
+    fetching();
+  }, []);
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={allPosts}
+        data={posts}
         // data={[]}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard video={item} />}
+        renderItem={({ item }) => <VideoCard video={item} key={item.$id} />}
         ListHeaderComponent={() => {
           return (
             <View className="px-4 my-10">
