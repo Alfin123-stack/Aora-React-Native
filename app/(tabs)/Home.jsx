@@ -16,11 +16,14 @@ import getAllPost from "../../lib/appwrite.js";
 import useFetchData from "../../hooks/useFetchData.js";
 import VideoCard from "../../components/VideoCard.jsx";
 import Trending from "../../components/Trending.jsx";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 const Home = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { data: allPosts, isLoading, refetch: allFecht } = useFetchData("all");
   const { data: latestPost, refetch: latestFetch } = useFetchData("latest");
+
+  const { user } = useAuth();
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -46,8 +49,8 @@ const Home = () => {
                   <Text className="text-gray-100 text-sm font-psemibold">
                     Welcome Back
                   </Text>
-                  <Text className="text-white text-3xl font-bold">
-                    JSMastery
+                  <Text className="text-white text-3xl font-bold mt-3">
+                    {user.username || ""}
                   </Text>
                 </View>
                 <Image

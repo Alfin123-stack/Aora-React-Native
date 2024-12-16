@@ -43,13 +43,16 @@ const BookMark = () => {
     fetching();
   }, []);
 
+  console.log(JSON.stringify(posts, null, 2));
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         data={posts}
         // data={[]}
-        keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <VideoCard video={item} key={item.$id} />}
+        // keyExtractor={(item) => }
+        renderItem={({ item }) => (
+          <VideoCard video={item} />
+        )}
         ListHeaderComponent={() => {
           return (
             <View className="px-4 my-10">

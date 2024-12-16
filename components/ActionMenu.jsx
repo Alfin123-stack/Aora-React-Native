@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Image, Text } from "react-native";
 import { icons } from "../constants";
 import ModalDialog from "./ModalDialog"; // Import ModalDialog
 
-const ActionMenu = ({isSaved}) => {
+const ActionMenu = ({isSaved, id}) => {
   const [visible, setVisible] = useState(false); // Untuk kontrol visibilitas dialog
   const [dialogType, setDialogType] = useState(null); // Untuk menentukan jenis dialog
 
@@ -43,6 +43,7 @@ const ActionMenu = ({isSaved}) => {
 
       {/* ModalDialog */}
       <ModalDialog
+      id={id}
       isSaved={isSaved}
         visible={visible}
         hideDialog={hideDialog}

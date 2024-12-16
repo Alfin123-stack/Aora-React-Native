@@ -33,9 +33,9 @@ const VideoCard = ({
     fetching();
   }, []);
 
-  const isSaved = posts.filter((saved) => saved.$id === id).map(isSaved => isSaved.$id);
-  
-
+  const isSaved = posts
+    .filter((saved) => saved.$id === id)
+    .map((isSaved) => isSaved.$id);
 
   return (
     <View className="px-4 flex flex-col items-center mb-14 w-full relative">
@@ -96,7 +96,7 @@ const VideoCard = ({
         </TouchableOpacity>
       )}
 
-      {isActionMenu && <ActionMenu isSaved={isSaved} />}
+      {isActionMenu && <ActionMenu id={id} isSaved={isSaved} />}
     </View>
   );
 };

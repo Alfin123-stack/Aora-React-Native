@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Dialog, Portal, Button, Paragraph } from "react-native-paper"; // Import dari react-native-paper
 import React from "react";
+import { useAuth } from "../context/AuthContext";
+import { addToSavedVideos, deleteFromSavedVideos } from "../lib/appwrite";
 
-const ModalDialog = ({ visible, hideDialog, dialogType, isSaved }) => {
+const ModalDialog = ({ visible, hideDialog, dialogType, isSaved, id }) => {
+  const { user } = useAuth();
   return (
     <View>
       {/* Custom Dialog */}
       <Portal>
         <Dialog visible={visible} onDismiss={hideDialog} style={styles.dialog}>
-          {isSaved.length ? (
+          {isSaved.length && dialogType === "save" ? (
             <>
               <Dialog.Title style={styles.dialogTitle}>
                 Already Saved
@@ -35,13 +38,17 @@ const ModalDialog = ({ visible, hideDialog, dialogType, isSaved }) => {
               </Dialog.Content>
               <Dialog.Actions>
                 <Button onPress={hideDialog}>Cancel</Button>
-                <Button
+                {dialogType === 'save' ? <Button
                   onPress={() => {
-                    console.log("Save video");
-                    hideDialog(); // Menutup dialog setelah aksi "Yes"
+                    addToSavedVideos(user.$id, id);
                   }}>
                   Yes
-                </Button>
+                </Button>: <Button
+                  onPress={() => {
+                    deleteFromSavedVideos(user.$id, id);
+                  }}>
+                  yes
+                </Button>}
               </Dialog.Actions>
             </>
           )}
