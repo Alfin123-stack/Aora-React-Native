@@ -2,12 +2,12 @@
 
 _A mobile application built with React Native and Expo for video sharing & bookmarking_  
 
-![React Native](https://img.shields.io/badge/React%20Native-0.76-61DAFB?logo=react&logoColor=white)  
-![Expo](https://img.shields.io/badge/Expo-52-000020?logo=expo&logoColor=white)  
-![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)  
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?logo=tailwindcss&logoColor=white)  
-![Jest](https://img.shields.io/badge/Jest-29-C21325?logo=jest&logoColor=white)  
-![License](https://img.shields.io/badge/license-MIT-green)  
+![React Native](https://img.shields.io/badge/React%20Native-0.76-61DAFB?logo=react&logoColor=white) 
+![Expo](https://img.shields.io/badge/Expo-52-000020?logo=expo&logoColor=white) 
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white) 
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?logo=tailwindcss&logoColor=white) 
+![Jest](https://img.shields.io/badge/Jest-29-C21325?logo=jest&logoColor=white) 
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
