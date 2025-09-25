@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# 📱 Aora - React Native  
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+_A mobile application built with React Native and Expo for video sharing & bookmarking_  
 
-## Get started
+![React Native](https://img.shields.io/badge/React%20Native-0.76-61DAFB?logo=react&logoColor=white)  
+![Expo](https://img.shields.io/badge/Expo-52-000020?logo=expo&logoColor=white)  
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)  
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38B2AC?logo=tailwindcss&logoColor=white)  
+![Jest](https://img.shields.io/badge/Jest-29-C21325?logo=jest&logoColor=white)  
+![License](https://img.shields.io/badge/license-MIT-green)  
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📖 Overview  
+**Aora** adalah aplikasi mobile berbasis **React Native + Expo** yang memungkinkan pengguna untuk **membuat, menonton, dan menyimpan video**.  
+Aplikasi ini menggunakan **Appwrite** sebagai backend service, serta mendukung navigasi modern, styling dengan **TailwindCSS (NativeWind)**, dan pengelolaan state yang efisien.  
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## ✨ Features  
+- 🎥 **Video Upload & Playback** → Unggah dan tonton video langsung di aplikasi.  
+- 🔖 **Bookmark Video** → Simpan video favorit ke halaman bookmark.  
+- 👤 **User Authentication** → Login & registrasi menggunakan Appwrite.  
+- 🧭 **Navigation** → Routing modern dengan Expo Router dan React Navigation.  
+- 🎨 **UI/UX Modern** → Styling menggunakan TailwindCSS (NativeWind) + React Native Paper.  
+- 📱 **Cross-Platform** → Berjalan di Android, iOS, dan Web.  
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🏗 Tech Stack  
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+**Frontend & Framework**  
+- React Native, Expo, TypeScript  
 
-## Get a fresh project
+**UI/UX**  
+- TailwindCSS (NativeWind), React Native Paper, React Native Animatable  
 
-When you're ready, run:
+**Backend & Auth**  
+- Appwrite  
 
+**Navigation**  
+- Expo Router, React Navigation  
+
+**Testing**  
+- Jest, React Test Renderer, Jest-Expo  
+
+---
+
+## ⚡ Getting Started  
+
+### ✅ Prerequisites  
+- Node.js `>= 18`  
+- Expo CLI  
+- Android Studio / Xcode (untuk emulator) atau Expo Go (untuk device real)  
+
+### 📥 Installation  
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+git clone https://github.com/Alfin123-stack/Aora-React-Native.git
+cd Aora-React-Native
+npm install
